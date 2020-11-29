@@ -1,0 +1,15 @@
+#board{
+    display:block;
+    margin:auto;
+    box-shadow:-2px -2px 2px white,5px 5px 5px grey;
+    border-radius: 7px;
+    cursor: pointer;
+    /*background-color: yellow;*/
+}
+
+button{
+     background-color: yellow;
+     line-height: 40px;
+     font-size: 20px;
+     border-radius: 5px;
+}
