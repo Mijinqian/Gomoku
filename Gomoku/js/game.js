@@ -1,3 +1,5 @@
+
+var count = 0;
 //  checkerboard
 function checkerboard(){
     var getBoard = document.getElementById("board");
@@ -64,6 +66,7 @@ function stone(){
         var x =(e.offsetX/40)|0;
         var y = (e.offsetY/40)|0;
         // ---------
+        /*
         if(map[x][y] == 0){
             if(changeColor%2 == 0){
                 drawStone(x,y,'black'); 
@@ -75,9 +78,24 @@ function stone(){
             //judgwin();
         changeColor++;
         }
+        */
+       var color = "";
+       // ---------
+       if (map[x][y] == 0) {
+           if (changeColor % 2 == 0)
+               color = "black";
+           else
+               color = "white";
+
+           drawStone(x, y, color);
+           map[x][y] = color;
+           judgwin(x, y, color);
+           changeColor++;
+       }
     }
     function judgwin(x,y,color){
         //alert('winer!');
+        /*
         var count = 0;
         for(var i = 0; i < 5; i++){
             if(map[x][y+i]== color){
@@ -87,6 +105,103 @@ function stone(){
             }
         }
         console.log(count);
+    }
+    */
+        // judge if the horizontal connect 5 or not
+        for (var i = 4; i >= 0; i--) {
+            for (var j = 0; j <= 4; j++) {
+                var abscissa = ((x - i) + j);
+                var ordinate = y;
+                // console.log(abscissa, ordinate, map[abscissa][ordinate] == color)
+                if (abscissa < 0)
+                    break;
+                if (abscissa > 14)
+                    break;
+                if (map[abscissa][ordinate] == color) {
+                    count++
+                    if (count >= 5) {
+                        alert("The " + color + " player won the Game!");
+                        return;
+                    }
+                } else {
+                    count = 0;
+                    break;
+                }
+            }
+        }
+        // judge if the vertical connect 5 or not
+        for (var i = 4; i >= 0; i--) {
+            for (var j = 0; j <= 4; j++) {
+                var abscissa = x;
+                var ordinate = ((y - i) + j);
+
+                if (ordinate < 0)
+                    break
+                if (ordinate > 14)
+                    break
+                if (map[abscissa][ordinate] == color) {
+                    count++
+                    if (count >= 5) {
+                        alert("The " + color + " player won the game");
+                        return;
+                    }
+                } else {
+                    count = 0;
+                    break;
+                }
+            }
+        }
+        // judge if the vertical connect 5 or not
+        for (var i = 4; i >= 0; i--) {
+            for (var j = 0; j <= 4; j++) {
+
+                var abscissa = ((x - i) + j);
+                var ordinate = ((y - i) + j);
+
+
+                if (abscissa < 0)
+                    break
+                if (abscissa > 14)
+                    break
+                if (map[abscissa][ordinate] == color) {
+                    count++
+                    if (count >= 5) {
+                        alert("The " + color + " player won the game");
+                        return;
+                    }
+                } else {
+                    count = 0;
+                    break;
+                }
+            }
+        }
+        // judge if the vertical connect 5 or not
+        for (let i = 4; i >= 0; i--) {
+            // console.log("i:", i)
+            for (let j = 0; j <= 4; j++) {
+
+                var abscissa = (x + i) - j; //10+4 10+3 10+2 10+1 10+0
+                var ordinate = (y - i) + j;// 4-4 4-3 4-2 4-1 4-0*/
+
+                if (abscissa < 0 || abscissa > 14 || ordinate < 0 || ordinate > 14) {
+                    console.log(abscissa, ordinate, "break")
+                    break
+                }
+                if (map[abscissa][ordinate] == color) {
+                    count++
+
+                    if (count >= 5) {
+                        alert("The " + color + " player won the game");
+                        return;
+                    }
+
+                } else {
+                    count = 0;
+                    break;
+                }
+
+            }
+        }
     }
 }
 /*
